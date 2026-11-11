@@ -26,7 +26,7 @@ def move_query(moves):
         try:
             player_move = int(input("Your move: "))
             if player_move >= 1 and player_move <= 9:
-                if player_move not in moves[:][[1]]:
+                if player_move not in [move[1] for move in moves]:
                     moves.append(('O', player_move))
                     break
                 raise IndexError # Move is already occupied
@@ -65,12 +65,14 @@ def check_win(board, sign):
             return winner
         if all(board[j][i] == sign for j in range(3)):
             return winner
-        if all(board[j][j] == sign for j in range(3)): #board[0][0] == sign and board[1][1] == sign and board[2][2] == sign:
-            return winner
-        if all(board[j][2 - j] == sign for j in range(3)):
-            return winner
-        else:
-            return None
+        
+    # Checking diagonals
+    if all(board[i][i] == sign for i in range(3)):
+        return winner
+    if all(board[i][2 - i] == sign for i in range(3)):
+        return winner
+    else:
+        return None
 
 """Updating the board"""
 def update_board(board):
@@ -79,23 +81,28 @@ def update_board(board):
         board[row][col] = symbol
     return 
 
-game_over = False
+board[1][1] = 'X'
+moves.append(('X', 5))
 board_maker(board)
 
-board[1][1] = 'X'
-while (len(moves) < 9 or game_over):
-    
+while (len(moves) < 9):
+    # User's turn
     move_query(moves) # Ask for a move
+    update_board(board) # Update the board
+    board_maker(board) # Draw the updated board
     if check_win(board, 'O'):
-        game_over = True
         print('You won!')
         break
 
+    #Bot's turn
     generate_move() # Generate bot's move
-    if check_win(board, 'X'):
-          game_over = True
-          print('You lost!')
-          break
-
-    update_board(board) # Update tge board
+    update_board(board) # Update the board
     board_maker(board) # Draw the updated board
+    if check_win(board, 'X'):
+        print('You lost!')
+        break
+
+
+    # Checking for draw
+    if len(moves) == 9:
+            print('GGWP, its a draw!')

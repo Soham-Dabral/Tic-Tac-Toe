@@ -20,26 +20,6 @@ A simple two-player Tic-Tac-Toe game built in Python using Object-Oriented Progr
 * Draw detection
 * Console-based interface
 
-## How to Run
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/<your-username>/tic-tac-toe.git
-```
-
-2. Navigate to the project directory:
-
-```bash
-cd tic-tac-toe
-```
-
-3. Run the program:
-
-```bash
-python main.py
-```
-
 ## How to Play
 
 * Player **X** always starts first.
@@ -68,11 +48,8 @@ Column: 2
 ## Future Improvements
 
 * Replay option
-* Single-player mode against an AI
-* Minimax algorithm
+* Single-player mode against an computer
 * Graphical interface using Tkinter or CustomTkinter
-* Configurable board size
-* Score tracking
 
 ## License
 
